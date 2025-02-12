@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - Prediction</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+
+<h1 class="mt-4" style="margin-left: 15px;">
+    {{ station_name }}</i>
+</h1>
+<div style="display: flex; align-items: center; margin-left: 15px;">
+    <h3 > Live Weather & Risk Analysis </h3>
+    <img src="/static/images/flood.png" alt="Logo" style="width: 70px; height: 65px;">
+</div>
+<div class="container">
+    <div class="row" style="margin-left: 22px; margin-top: 20px;">
+        {% for card in card %}
+            <div class="col-md-4 mb-3">
+                <div class="card" style="height: 8rem; width: 16rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ card.title }} <i class="fa-solid {{ card.icon }}"  style="color: {{ card.color }}; font-size: 24px;" ></i></h5>
+                        <p class="text-center" style="margin-left: 15px; text-decoration: none; color: black;">{{ card.value }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button class="btn btn-primary" style="margin-left: 33px; width: 12rem ;"><a href="{% url 'home' %}" class="btn" style="color: white;"><i class="fa-solid fa-angles-right" style="margin-right: 4px ; color: white;"></i>Back to Home</a></button>
+    
+</div>
+{% endblock%}
+

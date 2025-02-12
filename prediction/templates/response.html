@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - Response Plan</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+<h2 class="mt-4" style="margin-left: 20px;">Support & Assistance Center <i class="fa-solid fa-helicopter" style="color: #ff4500; "></i> </h2>
+<div class="container ">
+    <div class="row pt-4">
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">Before Disaster<i class="fa-solid fa-triangle-exclamation" style="color: gold; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Monitor weather alerts, warnings, and flood forecasts via Pralay Mitra. </p>
+                </li>
+                <li>
+                    <p> Pack essentials: food, water (for at least 3 days), flashlight, batteries, first aid, cash, and important documents in waterproof bags. </p>
+                </li>
+                <li>
+                    <p> Elevate electrical appliances and valuable items above potential flood levels. </p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow " style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">During Disaster<i class="fa-solid fa-bullhorn" style="color: #ff4500; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Never drive or walk through floodwaters. </p>
+                </li>
+                <li>
+                    <p> Avoid Contact with Floodwater.  </p>
+                    <p> Wear protective gear if you must move through it. </p>
+                </li>
+                <li>
+                    <p>Use Pralay Mitra updates to track the situation.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">After Disaster<i class="fa-solid fa-hand-holding-heart" style="color: #ffdbac; margin-left: 7px;"></i> </h4>
+            <ul>
+                <li class="mt-4">
+                    <p>Do not return home until it’s declared safe.</p>
+                </li>
+                <li>
+                    <p>Inspect walls, floors, and foundation for cracks or weaknesses.</p>
+                    <p>Avoid entering buildings with standing water inside.</p>
+                </li>
+                <li>
+                    <p>Do not turn on power until an electrician inspects your home.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+
+    </div>
+
+   
+      
+<button id="open-chatbot" class="btn btn-primary mt-4 ">Open ReliefMate<i class="fa-solid fa-handshake" style="color: #ffdbac; margin-left: 6px; margin-top: 10px;"></i></button>
+
+<div class="col-6">
+<div id="chatbot-container" class="chatbot-popup" style="display: none; width: 35rem; height: 48rem;">
+    <div class="card shadow mt-4 " >
+        <div class="card-body" >
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title">ReliefMate <i class="fa-solid fa-robot" style="color: #015296;"></i></h4>
+                <button id="close-chatbot" class="btn  btn-sm"><i class="fa-solid fa-xmark" style="color: red; margin-left: 6px;"></i></button>
+            </div>
+            
+            
+            <div class="mb-4 mt-3">
+                <button class="btn btn-primary phase-btn rounded-5" data-phase="before">Before Disaster</button>
+                <button class="btn btn-primary phase-btn rounded-5" data-phase="during">During Disaster</button>
+                <button class="btn btn-primary phase-btn rounded-5" data-phase="after">After Disaster</button>
+            </div>
+
+            
+            <div id="chat-box" class="p-3 border rounded" style="height: 250px; overflow-y: auto; background: #f9f9f9;">
+                <p><strong>ReliefMate<i class="fa-solid fa-handshake" style="color: #ffdbac; margin-left: 6px; margin-top: 10px;"></i> </strong>: Hello! How can I assist you regarding disaster safety?</p>
+            </div>
+
+           
+            <div class="mt-2">
+                <input type="text" id="user-input" class="form-control" placeholder="Type your question...">
+                <button id="send-btn" class="btn btn-primary mt-2"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatbotContainer = document.getElementById("chatbot-container");
+        const openChatbotBtn = document.getElementById("open-chatbot");
+        const closeChatbotBtn = document.getElementById("close-chatbot");
+        const phaseButtons = document.querySelectorAll(".phase-btn");
+        let selectedPhase = "before"; // Default phase
+        const chatBox = document.getElementById("chat-box");
+    
+        // Show chatbot when button is clicked
+        openChatbotBtn.addEventListener("click", function () {
+            chatbotContainer.style.display = "block";
+        });
+    
+        // Hide chatbot when close button is clicked
+        closeChatbotBtn.addEventListener("click", function () {
+            chatbotContainer.style.display = "none";
+        });
+    
+        // Handle phase selection
+        phaseButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                selectedPhase = this.getAttribute("data-phase"); // Update selected phase
+                chatBox.innerHTML += `<p><strong>System:</strong> Selected phase - <em>${selectedPhase}</em></p>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+            });
+        });
+    
+        // Handle message sending
+        document.getElementById("send-btn").addEventListener("click", function() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (userInput === "") return;
+    
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+    
+            fetch("{% url 'chatbot_api' %}", { 
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}" 
+                },
+                body: JSON.stringify({ phase: selectedPhase, message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatBox.innerHTML += `<p><strong>ReliefMate:</strong> ${data.response}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+            })
+            .catch(error => console.error("Error:", error));
+    
+            document.getElementById("user-input").value = ""; // Clear input after sending
+        });
+    });
+    </script>
+    
+    
+
+
+{% endblock %}

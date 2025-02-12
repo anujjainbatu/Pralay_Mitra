@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - Response Plan</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+<h2 class="mt-4" style="margin-left: 20px;">Support & Assistance Center <i class="fa-solid fa-helicopter" style="color: #ff4500; "></i> </h2>
+<div class="container ">
+    <div class="row pt-4">
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">Before Disaster<i class="fa-solid fa-triangle-exclamation" style="color: gold; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Monitor weather alerts, warnings, and flood forecasts via Pralay Mitra. </p>
+                </li>
+                <li>
+                    <p> Pack essentials: food, water (for at least 3 days), flashlight, batteries, first aid, cash, and important documents in waterproof bags. </p>
+                </li>
+                <li>
+                    <p> Elevate electrical appliances and valuable items above potential flood levels. </p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow " style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">During Disaster<i class="fa-solid fa-bullhorn" style="color: #ff4500; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Never drive or walk through floodwaters. </p>
+                </li>
+                <li>
+                    <p> Avoid Contact with Floodwater.  </p>
+                    <p> Wear protective gear if you must move through it. </p>
+                </li>
+                <li>
+                    <p>Use Pralay Mitra updates to track the situation.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">After Disaster<i class="fa-solid fa-hand-holding-heart" style="color: #ffdbac; margin-left: 7px;"></i> </h4>
+            <ul>
+                <li class="mt-4">
+                    <p>Do not return home until it’s declared safe.</p>
+                </li>
+                <li>
+                    <p>Inspect walls, floors, and foundation for cracks or weaknesses.</p>
+                    <p>Avoid entering buildings with standing water inside.</p>
+                </li>
+                <li>
+                    <p>Do not turn on power until an electrician inspects your home.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Pralay Mitra Chatbot <i class="fa-solid fa-robot" style="color: #4682B4;"></i></h4>
+            <select id="disaster-phase" class="form-select mb-2">
+                <option value="before">Before Disaster</option>
+                <option value="during">During Disaster</option>
+                <option value="after">After Disaster</option>
+            </select>
+            <div id="chat-box" class="p-3 border rounded" style="height: 200px; overflow-y: auto; background: #f9f9f9;">
+                <p><strong>Chatbot:</strong> Hello! How can I assist you regarding disaster safety?</p>
+            </div>
+            <div class="mt-2">
+                <input type="text" id="user-input" class="form-control" placeholder="Type your question...">
+                <button id="send-btn" class="btn btn-primary mt-2">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    document.getElementById("send-btn").addEventListener("click", function() {
+        let userInput = document.getElementById("user-input").value.trim();
+        let phase = document.getElementById("disaster-phase").value;
+        if (userInput === "") return;
+        
+        let chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+        
+        fetch("{% url 'chatbot_api' %}", { 
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+            body: JSON.stringify({ phase: phase, message: userInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            chatBox.innerHTML += `<p><strong>Chatbot:</strong> ${data.response}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => console.error("Error:", error));
+    
+        document.getElementById("user-input").value = "";
+    });
+    </script>
+    
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <h4 class="card-title">Pralay Mitra Chatbot <i class="fa-solid fa-robot" style="color: #4682B4;"></i></h4>
+        <div class="mb-3">
+            <button class="btn btn-outline-primary phase-btn" data-phase="before">Before Disaster</button>
+            <button class="btn btn-outline-warning phase-btn" data-phase="during">During Disaster</button>
+            <button class="btn btn-outline-danger phase-btn" data-phase="after">After Disaster</button>
+        </div>
+        <div id="chat-box" class="p-3 border rounded" style="height: 200px; overflow-y: auto; background: #f9f9f9;">
+            <p><strong>Chatbot:</strong> Hello! How can I assist you regarding disaster safety?</p>
+        </div>
+        <div class="mt-2">
+            <input type="text" id="user-input" class="form-control" placeholder="Type your question...">
+            <button id="send-btn" class="btn btn-primary mt-2">Send</button>
+        </div>
+    </div>
+</div>

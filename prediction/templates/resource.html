@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - resource</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+<h1 class="mt-4">Support & Assistance Center <i class="fa-solid fa-handshake" style="color: #ffdbac; margin-left: 6px; margin-top: 10px;"></i></h1>
+<div class="container">
+    <h4 class="mt-5"> Emergency Contacts & Helplines<i class="fa-solid fa-phone" style="color: red; margin-left: 6px;"></i></h4>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Department</th>
+            <th scope="col">Contact Number</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>State Disaster Response</td>
+            <td>1070</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>National Disaster Response Force (NDRF)</td>
+            <td>9711077372</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Flood Control Room (UP)</td>
+            <td>1070</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Agriculture Relief Helpline</td>
+            <td>1800-180-1551</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Medical Emergency Services</td>
+            <td>108</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="mt-5 pb-2"> Damage Assessment & Compensation <i class="fas fa-dollar-sign" style="color: #FFD700;"></i>
+      </h4>
+
+      <table class="table mt-2">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Scheme</th>
+            <th scope="col">Eligibility</th>
+            <th scope="col">Compensation Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Flood Damage Relief</td>
+            <td>Houses damaged by floods</td>
+            <td>₹25,000</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Agricultural Loss Aid</td>
+            <td>Crop damage due to floods</td>
+            <td>₹10,000 per acre</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Livestock Compensation</td>
+            <td>Death of cattle in floods</td>
+            <td>₹5,000 per animal</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}

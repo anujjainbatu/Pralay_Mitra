@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: pralayMitra
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --no-input"
+    startCommand: "gunicorn pralayMitra.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        value: "django-insecure-=yd7_y_b7a8^y*bw)job#%g128(7o5@yja1jq@k^-fpi$^)x1_"
+      - key: GEMINI_API_KEY
+        value: "AIzaSyD2alxBw_rzg-y389wcM4uT4VAJkaJILAo"

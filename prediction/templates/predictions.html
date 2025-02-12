@@ -1,12 +1,92 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-<title>Pralay_Mitra - Prediction</title>
+<title>Pralay_Mitra - all cities</title>
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
 {% block content %}
 {% include "components/navbar.html" %}
 
+<h2 class="mt-4" style="margin-left: 20px;"> Find Your District <i class="fa-solid fa-location-dot text-danger"></i></h2>
+<h6  style="margin-left: 34px; margin-top: 32px;">POPULAR DISTRICTS</h6>
 
+<div class="container">
+<div class="row" style="margin-left: 22px; margin-top: 20px;">
+    <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-landmark text-center" style="margin-left: 27px;"></i></h5>
+          <a href="{% url 'district_detail' 'Lucknow' %}" style="margin-left: 7px; text-decoration: none; color: black;">Lucknow</a>
+          
+        </div>
+      </div>
+
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-place-of-worship" style="margin-left: 32px;"></i></h5>
+          <a href="{% url 'district_detail' 'Varanasi' %}" style="margin-left: 15px; text-decoration: none; color: black;">Varanasi</a>
+          
+        </div>
+    </div>
+    <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-monument" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail' 'Agra' %}" style="margin-left: 25px; text-decoration: none; color: black;">Agra</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-water" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail' '	Allahabad' %}" style="margin-left: 10px; text-decoration: none; color: black;">Allahabad</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-industry" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail' 'Kanpur Nagar' %}" style="margin-left: 20px; text-decoration: none; color: black;">Kanpur</a>
+        </div>
+      </div>
+</div>
+<div class="row" style="margin-left: 22px;">
+    <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-building" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail'  'Noida' %}" style="margin-left: 20px; text-decoration: none; color: black;">Noida</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-synagogue" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail'  'Gorakhpur'%}" style="margin-left: 10px; text-decoration: none; color: black;">Gorakhpur</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-om" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail'  'Mathura'%}" style="margin-left: 20px; text-decoration: none; color: black;">Mathura</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-gopuram" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail'  'Ayodhya'%}" style="margin-left: 20px; text-decoration: none; color: black;">Ayodhya</a>
+        </div>
+      </div>
+      <div class="card" style="width: 10rem; height: 6rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa-solid fa-horse" style="margin-left: 37px;"></i></h5>
+          <a href="{% url 'district_detail'  'Jhansi'%}" style="margin-left: 20px;  text-decoration: none; color: black;">Jhansi</a>
+        </div>
+      </div>
+</div>
+</div>
+
+<div class="container " style="margin-left: 25px;">
+    <h6  style="margin-top: 32px;">OTHER DISTRICTS</h6>
+    {%for district in district_name %}
+    <hr>
+    <a href="{% url 'district_detail' district %}" style=" text-decoration: none; color: black;">{{district}}</a>
+    
+    {%endfor%}
+</div>
 {% endblock %}

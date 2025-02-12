@@ -1,7 +1,7 @@
 <div class="container-fluid mt-2">
-    <form class="d-flex" role="search">
+    <form id="searchForm" class="d-flex" role="search">
         <div class="input-group mt-2" style="width: 850px; position: relative;">
-            <input class="form-control" type="search" placeholder="&#xf002; Search by District Name" aria-label="Search" style="font-family: Arial, FontAwesome;">
+            <input id="searchInput" class="form-control" type="search" placeholder="&#xf002; Search by District Name" aria-label="Search" style="font-family: Arial, FontAwesome;">
         </div>
         <button class="btn btn-outline-primary mt-3 ms-2" type="submit" style="height: 40px;">Search</button>
         
@@ -30,6 +30,23 @@
               dropdownButton.textContent = selectedCalamity; // Update button text
               console.log("Selected Calamity:", selectedCalamity);
           });
+      });
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+      const searchForm = document.getElementById("searchForm");
+      const searchInput = document.getElementById("searchInput");
+
+      searchForm.addEventListener("submit", function (event) {
+          event.preventDefault();  // Prevent the default form submission
+          
+          let districtName = searchInput.value.trim(); // Get user input and trim spaces
+          
+          if (districtName) {
+              let formattedDistrictName = districtName.replace(/\s+/g, '-'); // Replace spaces with hyphens if needed
+              window.location.href = `/district/${formattedDistrictName}/`; // Redirect to the detailed page
+          } else {
+              alert("Please enter a district name!"); // Show an alert if input is empty
+          }
       });
   });
 </script>
